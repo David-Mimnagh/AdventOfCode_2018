@@ -23,6 +23,8 @@ namespace AdventOfCode.Days
 
         int GridSize { get; set; }
 
+        int ClaimCount { get; set; }
+
         List<Instruction> Instructions = new List<Instruction>();
 
         void ReadInstructions()
@@ -56,33 +58,67 @@ namespace AdventOfCode.Days
             {
                 for (int j = 0; j < GridSize; j++)
                 {
-                    Console.Write(Grid[i, j]);
+                    Console.Write(Grid[j,i]);
+                    Console.Write("  ");
                 }
                 Console.WriteLine(Environment.NewLine);
             }
         }
         void CompleteInstructions()
         {
+            var IDNotOverLapped = 0;
             foreach (var inst in Instructions)
             {
-                Grid[inst.Y, inst.X] = inst.ID.ToString();
-
-                for (int i = 0; i < inst.W; i++)
+                var overlapped = false;
+                if (Grid[inst.X, inst.Y] == ".")
                 {
-                    for (int j = 0; j < inst.H; j++)
-                    {
+                    Grid[inst.X, inst.Y] = inst.ID.ToString();
+                }
+                else
+                {
+                    overlapped = true;
+                    Grid[inst.X, inst.Y] = "X";
+                }
 
+                for (int i = inst.X; i < (inst.X + inst.W); i++)
+                {
+                    for (int j = inst.Y; j < (inst.Y + inst.H); j++)
+                    {
+                        var newMarker = inst.ID.ToString();
+                        if(Grid[i, j] != inst.ID.ToString())
+                        {
+                            if (Grid[i, j] != ".")
+                            {
+                                newMarker = "X";
+                            }
+                        }
+
+                        Grid[i, j] = newMarker;
                     }
                 }
             }       
         }
+
+        void CheckClaims()
+        {
+            for (int i = 0; i < GridSize; i++)
+            {
+                for (int j = 0; j < GridSize; j++)
+                {
+                    if (Grid[i, j] == "X")
+                        ClaimCount++;
+                }
+            }
+        }
         public void CompletePart_1()
         {
-            GridSize = 25;
+            GridSize = 1000;
             ReadInstructions();
             PrepGrid();
             CompleteInstructions();
-            PrintGrid();
+            //PrintGrid();
+            CheckClaims();
+            Console.WriteLine("Claims: " + ClaimCount);
         }
     }
 }
