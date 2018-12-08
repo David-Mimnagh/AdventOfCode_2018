@@ -66,12 +66,9 @@ namespace AdventOfCode.Days
         }
         void CompleteInstructions()
         {
-            var IDNotOverLapped = 0;
-            var ListOfInstructions = new List<List<string>>();
+            var notOverLapped = new List<int>();
             foreach (var inst in Instructions)
             {
-                var currentList = new List<string>();
-                
                 var overlapped = false;
                 if (Grid[inst.X, inst.Y] == ".")
                 {
@@ -80,12 +77,17 @@ namespace AdventOfCode.Days
                 else
                 {
                     overlapped = true;
+                    if (Grid[inst.X, inst.Y] != "X")
+                    {
+                        var idInPlace = Convert.ToInt32(Grid[inst.X, inst.Y]);
+                        if (notOverLapped.Contains(idInPlace))
+                            notOverLapped.Remove(idInPlace);
+                    }
+
                     Grid[inst.X, inst.Y] = "X";
                 }
-                if (inst.ID != 1)
-                    currentList.Add(Grid[inst.X, inst.Y]);
 
-                 for (int i = inst.X; i < (inst.X + inst.W); i++)
+                for (int i = inst.X; i < (inst.X + inst.W); i++)
                 {
                     for (int j = inst.Y; j < (inst.Y + inst.H); j++)
                     {
@@ -96,27 +98,24 @@ namespace AdventOfCode.Days
                             {
                                 overlapped = true;
                                 newMarker = "X";
+                                if(Grid[i, j] != "X")
+                                    {
+                                        var idInPlace = Convert.ToInt32(Grid[i, j]);
+                                        if (notOverLapped.Contains(idInPlace))
+                                            notOverLapped.Remove(idInPlace);
+                                    }
                             }
                         }
 
                         Grid[i, j] = newMarker;
-                        if (inst.ID != 1)
-                            currentList.Add(newMarker);
                     }
                 }
+                if (!overlapped)
+                    notOverLapped.Add(inst.ID);
 
-                if(inst.ID != 1)
-                    ListOfInstructions.Add(currentList);
-            }
-            IDNotOverLapped = 0;
-            foreach (var list in ListOfInstructions)
-            {
-                if (!list.Contains("X"))
-                    IDNotOverLapped = 2;
 
-                IDNotOverLapped++;
             }
-            Console.WriteLine("ID: " + IDNotOverLapped);
+            Console.WriteLine("Not overlapping ID: " + notOverLapped.First());
         }
 
         void CheckClaims()
