@@ -9,7 +9,7 @@ namespace AdventOfCode
 {
     class Program
     {
-        const int DAYNUMBER = 4;
+        const int DAYNUMBER = 5;
         const string BASEPATH = @"D:\Projects\AdventOfCode_2018\AdventOfCode\AdventOfCode\Files\day";
 
 
@@ -34,11 +34,13 @@ namespace AdventOfCode
             //d3.PuzzleInput = ReadFileInput();
             //d3.CompletePart_1();
 
-            Day4 d4 = new Day4();
-            d4.PuzzleInput = ReadFileInput();
-            d4.CompletePartOne();
+            //Day4 d4 = new Day4();
+            //d4.PuzzleInput = ReadFileInput();
+            //d4.CompletePartOne();
 
-
+            Day5 d5 = new Day5();
+            d5.PuzzleInput = ReadFileInput();
+            d5.Run();
 
             Console.ReadLine();
         }
