@@ -9,8 +9,8 @@ namespace AdventOfCode
 {
     class Program
     {
-        const int DAYNUMBER = 5;
-        const string BASEPATH = @"D:\Projects\AdventOfCode_2018\AdventOfCode\AdventOfCode\Files\day";
+        const int DAYNUMBER = 1;
+        const string BASEPATH = @"..\..\Files\day";
 
 
         static string[] ReadFileInput()
@@ -22,25 +22,29 @@ namespace AdventOfCode
 
         static void Main(string[] args)
         {
-            //Day1 d1 = new Day1();
-            //d1.PuzzleInput = ReadFileInput();
+            //Day1 d1 = new Day1(ReadFileInput());
+            //d1.Initialise(ReadFileInput());
             //d1.CalculateFreq_Part2();
 
-            //Day2 d2 = new Day2();
-            //d2.PuzzleInput = ReadFileInput();
+            //Day2 d2 = new Day2(ReadFileInput());
+            //d2.Initialise(ReadFileInput());
             //d2.GetChecksum();
 
-            //Day3 d3 = new Day3();
-            //d3.PuzzleInput = ReadFileInput();
+            //Day3 d3 = new Day3(ReadFileInput());
+            //d3.Initialise(ReadFileInput());
             //d3.CompletePart_1();
 
-            //Day4 d4 = new Day4();
-            //d4.PuzzleInput = ReadFileInput();
+            //Day4 d4 = new Day4(ReadFileInput());
+            //d4.Initialise(ReadFileInput());
             //d4.CompletePartOne();
 
-            Day5 d5 = new Day5();
-            d5.PuzzleInput = ReadFileInput();
-            d5.Run();
+            //Day5 d5 = new Day5(ReadFileInput());
+            //d5.Initialise(ReadFileInput());
+            //d5.Run();
+
+            Day6 d6 = new Day6();
+            d6.Initialise(ReadFileInput());
+            d6.Run();
 
             Console.ReadLine();
         }

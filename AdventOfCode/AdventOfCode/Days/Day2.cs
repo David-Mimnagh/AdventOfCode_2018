@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode.Days
 {
-    public class Day2
+    public class Day2 : BaseDay
     {
-        public string[] PuzzleInput { get; set; }
         public int TwoLetterCount { get; set; }
         public int ThreeLetterCount { get; set; }
         public int Checksum { get; set; }

@@ -4,10 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdventOfCode
+namespace AdventOfCode.Days
 {
-    public class Day1
+    public class Day1 : BaseDay
     {
+        public Day1(string[] input)
+        {
+            PuzzleInput = input;
+        }
         public string[] PuzzleInput { get; set; }
         public List<int> SeenFrequencies { get; set; }
         public bool FoundMatch { get; set; }

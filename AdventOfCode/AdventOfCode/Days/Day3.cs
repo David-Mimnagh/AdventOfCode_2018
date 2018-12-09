@@ -16,9 +16,8 @@ namespace AdventOfCode.Days
     }
 
 
-    public class Day3
+    public class Day3 : BaseDay
     {
-        public string[] PuzzleInput { get; set; }
         string[,] Grid { get; set; }
 
         int GridSize { get; set; }

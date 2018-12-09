@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode.Days
 {
-    public class Day5
+    public class Day5 : BaseDay
     {
-        public string[] PuzzleInput { get; set; }
         public int Answer { get; set; }
 
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode.Days
 {
-   public class TimeLog
+    public class TimeLog
     {
         public int Year { get; set; }
         public int Month { get; set; }
@@ -17,9 +17,8 @@ namespace AdventOfCode.Days
         public string Message { get; set; }
     }
 
-    public class Day4
+    public class Day4 : BaseDay
     {
-        public string[] PuzzleInput { get; set; }
         public List<TimeLog> Records { get; set; }
         public List<string> guardRecords { get; set; }
 
@@ -27,7 +26,7 @@ namespace AdventOfCode.Days
         {
             Console.WriteLine("Date\tID\tMinute");
             var HoursString = "";
-            var MinutesString = ""; 
+            var MinutesString = "";
             for (int i = 0; i < 6; i++)
             {
                 for (int j = 0; j < 10; j++)
@@ -42,7 +41,7 @@ namespace AdventOfCode.Days
 
         void GetPuzzleTimeLog()
         {
-           Records = new List<TimeLog>();
+            Records = new List<TimeLog>();
             foreach (var line in PuzzleInput)
             {
                 var message = line.Substring(line.IndexOf("]") + 1).Trim();
@@ -58,7 +57,7 @@ namespace AdventOfCode.Days
                 var hour = Convert.ToInt32(time[0]);
                 var minute = Convert.ToInt32(time[1]);
                 var dt = new DateTime(year, month, day, hour, minute, 0);
-                Records.Add(new TimeLog {Year = year, Month = month, Day = day, TimeHour = hour, TimeMinute = minute, Message = message, MessageDateTime = dt });
+                Records.Add(new TimeLog { Year = year, Month = month, Day = day, TimeHour = hour, TimeMinute = minute, Message = message, MessageDateTime = dt });
                 Records = Records.OrderBy(r => r.MessageDateTime).ToList();
             }
         }
@@ -70,12 +69,12 @@ namespace AdventOfCode.Days
             var wokeUpAt = "";
             guardRecords = new List<string>();
             var currentLine = 0;
-            
+
             foreach (var r in Records)
             {
                 //TODO: PROBLEM IF THE GUARD WAKES UP AND FALLS ASLEEP AGAIN.
 
-                if (r.Message.Contains("Guard") || currentLine == Records.Count-1) // start of new line
+                if (r.Message.Contains("Guard") || currentLine == Records.Count - 1) // start of new line
                 {
                     if (r.Message.Contains("asleep")) // means currently awake
                     {
@@ -93,13 +92,13 @@ namespace AdventOfCode.Days
                         for (int i = 0; i < 60; i++)
                         {
                             var currentlyAsleep = false;
-                            if(fellAsleepAt.Contains("&"))
+                            if (fellAsleepAt.Contains("&"))
                             {
                                 var fellAsleepAtTimes = fellAsleepAt.Split('&');
                                 var wokenAtTimes = wokeUpAt.Split('&');
                                 for (int j = 0; j < fellAsleepAtTimes.Length; j++)
                                 {
-                                    if(i >= Convert.ToInt32(fellAsleepAtTimes[j]))
+                                    if (i >= Convert.ToInt32(fellAsleepAtTimes[j]))
                                     {
                                         if (i < Convert.ToInt32(wokenAtTimes[j]))
                                             currentlyAsleep = true;
@@ -108,17 +107,17 @@ namespace AdventOfCode.Days
                             }
                             else
                             {
-                                if(i>= Convert.ToInt32(fellAsleepAt))
+                                if (i >= Convert.ToInt32(fellAsleepAt))
                                 {
                                     if (i < Convert.ToInt32(wokeUpAt))
                                         currentlyAsleep = true;
                                 }
                             }
-                            if(!currentlyAsleep) // not fallen asleep yet
+                            if (!currentlyAsleep) // not fallen asleep yet
                             {
                                 timestring += ".";
                             }
-                            else 
+                            else
                             {
                                 timestring += "#";
                             }
@@ -126,7 +125,7 @@ namespace AdventOfCode.Days
                         currentLineString += timestring;
                         guardRecords.Add(currentLineString);
                         fellAsleepAt = "";
-                       wokeUpAt = "";
+                        wokeUpAt = "";
                     }
                     var guardId = "";
                     if (r.Message.Contains("Guard"))
@@ -155,9 +154,9 @@ namespace AdventOfCode.Days
                     currentLineString += r.Month + "-" + r.Day + "\t" + guardId + "\t";
                 }
 
-                if(r.Message.Contains("asleep")) // means currently awake
+                if (r.Message.Contains("asleep")) // means currently awake
                 {
-                    fellAsleepAt += (fellAsleepAt.Length == 0) ? r.TimeMinute.ToString() : ("&"+r.TimeMinute.ToString());
+                    fellAsleepAt += (fellAsleepAt.Length == 0) ? r.TimeMinute.ToString() : ("&" + r.TimeMinute.ToString());
                 }
 
                 if (r.Message.Contains("wakes")) // means currently asleep
@@ -176,14 +175,14 @@ namespace AdventOfCode.Days
                 for (int i = 0; i < 60; i++)
                 {
                     string listString = guardRecArr[2];
-                   
+
                     if (listString[i] == '#')
                         minuteSleeping.Add(i);
                 }
                 guardRecordOverall.Add(new Tuple<int, List<int>>(guardID, minuteSleeping));
             }
             guardRecordOverall = guardRecordOverall.OrderBy(g => g.Item1).ToList();
-            
+
             var copy = guardRecordOverall.GroupBy(g => g.Item1);
             List<Tuple<int, List<int>>> minuteCount = new List<Tuple<int, List<int>>>();
             for (int i = 0; i < copy.Count(); i++)
@@ -193,8 +192,8 @@ namespace AdventOfCode.Days
                 var currentId = 0;
                 foreach (var item in listofstuff)
                 {
-                        currentId = item.Item1;
-                        minutesSlept = minutesSlept.Concat(item.Item2).ToList();
+                    currentId = item.Item1;
+                    minutesSlept = minutesSlept.Concat(item.Item2).ToList();
                 }
                 minuteCount.Add(new Tuple<int, List<int>>(currentId, minutesSlept));
 
